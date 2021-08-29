@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Zweck der Datei
 # Eileen Niedenführ | Matrikelnr. 811770
 # Datum
 
 
 import random
-import re
 import nltk
 
 
@@ -15,20 +14,20 @@ def solve_riddle():
     riddle_sentence, riddle_answer = get_riddle()
     print(riddle_sentence)
     while tries < 3:
-        answer_guess = input(">")
+        answer_guess = input("\n>")
         if answer_guess != riddle_answer:
             print("\nThat's incorrect. Try again!\n")
             tries += 1
         elif answer_guess == riddle_answer:
             print("\nYou guessed correct! The ticket was added to your bag. \
-Now you can gat the train.\n")
-            return        
+Now you can get the train.\n")
+            return
     print("Jet again incorrect. The word would have been *{}*. Let's try again!".format(riddle_answer))
     solve_riddle()
-    
+
 
 def get_riddle():
-    
+
     alice_text = nltk.corpus.gutenberg.raw('carroll-alice.txt')
     alice_sentences = nltk.sent_tokenize(alice_text)
     x = random.randint(0,len(alice_sentences))

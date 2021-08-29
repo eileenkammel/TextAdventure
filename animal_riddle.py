@@ -8,13 +8,13 @@ def solve_riddle():
     definition, animal = get_riddle()
     print (definition)
     while tries < 3:
-         answer_guess = input(">").lower()
+         answer_guess = input("\n>").lower()
          if answer_guess != animal:
             print("\nThat's incorrect. Try again!\n")
             tries += 1
          elif answer_guess == animal:
             print("\nYou guessed correct!\n")
-            return        
+            return
     print("\nJet again incorrect. The animal would have been *{}*. Let's try again!\n".format(animal))
     solve_riddle()
 
@@ -30,7 +30,7 @@ def get_riddle():
         return definition, animal
 
 
-        
-        
+
+
 
 

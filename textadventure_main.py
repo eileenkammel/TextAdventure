@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Zweck der Datei
 # Eileen Niedenführ | Matrikelnr. 811770
 # Datum

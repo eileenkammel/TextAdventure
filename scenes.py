@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Zweck der Datei
 # Eileen Niedenführ | Matrikelnr. 811770
 # Datum
@@ -19,7 +19,8 @@ class Scene():
             game.keep_playing = False
         elif command == "inspect bag":
             print (game.inventory)
-
+        else:
+            print("\nThat command is not helping you get along with your task.")
 
 
 class Trainstation(Scene):
@@ -27,33 +28,27 @@ class Trainstation(Scene):
         super().__init__(name)
 
     def handle_input(self, game, command):
-        super().handle_input(game, command)
         if command == "get train":
             print ("\nDon't you think you're missing something? \
 You need to buy a ticket first!")
         elif command == "buy ticket":
             game.current_scene = ticket_machine
         else:
-            print("\nThat command is not helping you get on the train. \
-Try another one.")
-
+            super().handle_input(game, command)
 
 
 class TicketMachine(Scene):
     def __init__(self, name):
         super().__init__(name)
-    
+
     def handle_input(self, game, command):
-        super().handle_input(game, command)
         if command == "get train":
             if game.tardiness == False:
                 game.current_scene = train1
             elif game.tardiness == True:
                 game.current_scene = train2
         else:
-            print("\nThat command is not helping you get on the train.\
-Try another one.")
-
+            super().handle_input(game, command)
 
 
 
@@ -61,9 +56,8 @@ Try another one.")
 class TrainOnTime(Scene):
     def __init__(self, name):
         super().__init__(name)
-    
+
     def handle_input(self, game, command):
-        super().handle_input(game, command)
         if command == "get to golm":
             probability = random.randint(0,100)
             if probability >= 60:
@@ -71,14 +65,13 @@ class TrainOnTime(Scene):
             else:
                 game.current_scene = library
         else:
-            print("\nTry another command. Maybe something about your destination?")
+            super().handle_input(game, command)
 
 class TicketCheck(Scene):
     def __init__(self, name):
         super().__init__(name)
 
     def handle_input(self, game, command):
-        super().handle_input(game, command)
         if command == "show ticket":
             probability = random.randint(0,10)
             if probability > 5:
@@ -87,8 +80,8 @@ class TicketCheck(Scene):
             else:
                 game.current_scene = fee
         else:
-            print("\nYour command should help you show your ticket to the man.\
-Try another one.")
+            super().handle_input(game, command)
+
 
 class Fee(Scene):
     def __init__(self, name):
@@ -99,25 +92,24 @@ class Fee(Scene):
             game.inventory.money.pay(15)
             print("\nYou pay the fee of 15€ and continue your journey.")
         else:
-            print("\nWe all hate paying fees! Nonetheless you should command the fee to be paid.")
+            super().handle_input(game, command)
+
 
 
 class TrainLate(Scene):
     def __init__(self, name):
         super().__init__(name)
     def handle_input(self,game,command):
-        super().handle_input(game, command)
         if command == "get to golm":
             game.current_scene = cafe
         else:
-            print("\nTry another command. Maybe something about your destination?")
+            super().handle_input(game, command)
 
 
 class Library(Scene):
     def __init__(self, name):
         super().__init__(name)
     def handle_input(self, game, command):
-        super().handle_input(game, command)
         if command == "read book":
             game.current_scene = book
         elif command == "get coffee":
@@ -127,8 +119,8 @@ class Library(Scene):
                 print ("\nThat stupid fee ate up all your money. \
 Sorry, no coffe for you.")
         else:
-             print("\nMaybe you should check you bag to determine what to\
-command next. Also, am I smelling coffee?")
+            super().handle_input(game, command)
+
 
 class Cafe(Scene):
     def __init__(self, name):

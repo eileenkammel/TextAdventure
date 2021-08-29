@@ -1,9 +1,9 @@
 
-You're at the ticket mashine. But something dosen't seem quite right.
+You're at the ticket machine. But something dosen't seem quite right.
 None of the usual ticket options are available.
 Instead, a picture of a fat blue caterpillar is displayed.
 Wait, is this caterpillar smoking a hookah?!
 Anyway, you've got no time to waste and when you touch the screen to check if the caterpillar
 was merely a screensaver, the caterpillar vanishes and a text pops up:
-"So, you're missing a ticket? First guess what else is missing here:" 
+"So, you're missing a ticket? First guess what else is missing here:"
 
