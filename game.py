@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 # Zweck der Datei
 # Eileen Niedenführ | Matrikelnr. 811770
 # Datum
@@ -23,6 +23,7 @@ class Game():
 
     def play(self):
         """Game loop"""
+        self.__init__()
         while self.keep_playing:
             print(self.current_scene.description)
             if self.current_scene == scenes.ticket_machine and self.solved_alice == False:
@@ -38,8 +39,16 @@ class Game():
                 self.inventory.add(inventory.Item("book"))
                 self.solved_animal = True
             elif self.current_scene == scenes.book or self.current_scene == scenes.cafe:
-                self.keep_playing == False
-            command = input(">").lower()
+                print("Would you like to try again tomorrow?(y/n)")
+                answer= input("\n>")
+                if answer == "y":
+                    self.play()
+                elif answer =="n":
+                    self.keep_playing == False
+                    break
+                else:
+                    print("Only y and n are accepted answers.")
+            command = input("\n>").lower()
             self.current_scene.handle_input(self, command)
 
 
@@ -51,6 +60,5 @@ def eval_time(end, start, game):
     if time_spent > 120.0:
         game.tardiness = True
 
-
-g = Game()
-g.play()
+def check_for_riddle(current_scene):
+    """Checks if the current scene requires solving a riddle"""
