@@ -5,22 +5,27 @@
 
 
 import random
+from re import S
+
 
 class Scene():
     """Creates instances of environments the player can interact with"""
-    def __init__(self,name):
+    def __init__(self, name):
         self.connections = {}
         self.name = name
-        with open("Scenes/{}.txt".format(self.name)) as x:
-            self.description= x.read()
+        with open("Scenes/{}.txt".format(self.name)) as description:
+            self.description = description.read()
 
     def handle_input(self, game, command):
         if command == "exit":
             game.keep_playing = False
         elif command == "inspect bag":
-            print (game.inventory)
+            print(game.inventory)
+            game.skip_description = True
         else:
-            print("\nThat command is not helping you get along with your task.")
+            print("\nThat command is \
+not helping you get along with your task.")
+            game.skip_description = True
 
 
 class Trainstation(Scene):
@@ -29,8 +34,9 @@ class Trainstation(Scene):
 
     def handle_input(self, game, command):
         if command == "get train":
-            print ("\nDon't you think you're missing something? \
+            print("\nDon't you think you're missing something? \
 You need to buy a ticket first!")
+            game.skip_description = True
         elif command == "buy ticket":
             game.current_scene = ticket_machine
         else:
@@ -43,14 +49,12 @@ class TicketMachine(Scene):
 
     def handle_input(self, game, command):
         if command == "get train":
-            if game.tardiness == False:
+            if game.tardiness is False:
                 game.current_scene = train1
-            elif game.tardiness == True:
+            elif game.tardiness is True:
                 game.current_scene = train2
         else:
             super().handle_input(game, command)
-
-
 
 
 class TrainOnTime(Scene):
@@ -59,7 +63,7 @@ class TrainOnTime(Scene):
 
     def handle_input(self, game, command):
         if command == "get to golm":
-            probability = random.randint(0,100)
+            probability = random.randint(0, 100)
             if probability >= 60:
                 game.current_scene = ticket_check
             else:
@@ -67,16 +71,18 @@ class TrainOnTime(Scene):
         else:
             super().handle_input(game, command)
 
+
 class TicketCheck(Scene):
     def __init__(self, name):
         super().__init__(name)
 
     def handle_input(self, game, command):
         if command == "show ticket":
-            probability = random.randint(0,10)
+            probability = random.randint(0, 10)
             if probability > 5:
                 game.current_scene = library
-                print("\nYou show your ticket to the man and continue your journey.")
+                print("\nYou show your ticket \
+to the man and continue your journey.")
             else:
                 game.current_scene = fee
         else:
@@ -86,6 +92,7 @@ class TicketCheck(Scene):
 class Fee(Scene):
     def __init__(self, name):
         super().__init__(name)
+
     def handle_input(self, game, command):
         if command == "pay fee":
             game.current_scene = library
@@ -95,11 +102,11 @@ class Fee(Scene):
             super().handle_input(game, command)
 
 
-
 class TrainLate(Scene):
     def __init__(self, name):
         super().__init__(name)
-    def handle_input(self,game,command):
+
+    def handle_input(self, game, command):
         if command == "get to golm":
             game.current_scene = cafe
         else:
@@ -109,6 +116,7 @@ class TrainLate(Scene):
 class Library(Scene):
     def __init__(self, name):
         super().__init__(name)
+
     def handle_input(self, game, command):
         if command == "read book":
             game.current_scene = book
@@ -116,21 +124,26 @@ class Library(Scene):
             if game.inventory.money.value > 0:
                 game.current_scene = cafe
             else:
-                print ("\nThat stupid fee ate up all your money. \
+                print("\nThat stupid fee ate up all your money. \
 Sorry, no coffe for you.")
+                game.skip_description = True
         else:
             super().handle_input(game, command)
 
 
-class Cafe(Scene):
+class CafeLate(Scene):
     def __init__(self, name):
         super().__init__(name)
+
+
+class CafeOnTime(Scene):
+    def __init__(self, name):
+        super().__init__(name)
+
 
 class Book(Scene):
     def __init__(self, name):
         super().__init__(name)
-
-
 
 
 hbf = Trainstation("hbf")
@@ -147,7 +160,8 @@ fee = Fee("fee")
 
 library = Library("library")
 
-cafe = Cafe("cafe")
+cafe = CafeLate("cafe")
+
+cafe2 = CafeOnTime("cafe2")
 
 book = Book("book")
-

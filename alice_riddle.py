@@ -14,15 +14,16 @@ def solve_riddle():
     riddle_sentence, riddle_answer = get_riddle()
     print(riddle_sentence)
     while tries < 3:
-        answer_guess = input("\n>")
-        if answer_guess != riddle_answer:
+        answer_guess = input("\n>").lower()
+        if answer_guess != riddle_answer.lower():
             print("\nThat's incorrect. Try again!\n")
             tries += 1
-        elif answer_guess == riddle_answer:
+        elif answer_guess == riddle_answer.lower():
             print("\nYou guessed correct! The ticket was added to your bag. \
 Now you can get the train.\n")
             return
-    print("Jet again incorrect. The word would have been *{}*. Let's try again!".format(riddle_answer))
+    print("Jet again incorrect. The word would have been *{}*. \
+Let's try again!".format(riddle_answer.lower()))
     solve_riddle()
 
 
@@ -30,16 +31,11 @@ def get_riddle():
 
     alice_text = nltk.corpus.gutenberg.raw('carroll-alice.txt')
     alice_sentences = nltk.sent_tokenize(alice_text)
-    x = random.randint(0,len(alice_sentences))
-    random_sentence = alice_sentences[x].replace("\n"," ")
+    x = random.randint(0, len(alice_sentences))
+    random_sentence = alice_sentences[x].replace("\n", " ")
     tokenized_sentence = nltk.word_tokenize(random_sentence)
-    tagged_tokens =  nltk.pos_tag(tokenized_sentence, tagset="universal")
-
-    if len(tokenized_sentence) != len(tagged_tokens):
-        print("Well this should never happen, but we are still here....HOW?!?!")
-
+    tagged_tokens = nltk.pos_tag(tokenized_sentence, tagset="universal")
     word_to_replace = random.randint(0, (len(tokenized_sentence)-1))
-
     riddle_sentence = ""
     riddle_answer = ""
     for idx, (word, tag) in enumerate(tagged_tokens):
@@ -52,6 +48,3 @@ def get_riddle():
         get_riddle()
     else:
         return riddle_sentence, riddle_answer
-
-
-

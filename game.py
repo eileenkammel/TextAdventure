@@ -19,14 +19,19 @@ class Game():
         self.tardiness = False
         self.solved_alice = False
         self.solved_animal = False
-
+        self.skip_description = False
 
     def play(self):
         """Game loop"""
         self.__init__()
         while self.keep_playing:
-            print(self.current_scene.description)
-            if self.current_scene == scenes.ticket_machine and self.solved_alice == False:
+            if self.skip_description is True:
+                self.skip_description = False
+            else:
+                print(self.current_scene.description)
+
+            if self.current_scene == scenes.ticket_machine and \
+                    self.solved_alice is False:
                 start = time.time()
                 alice_riddle.solve_riddle()
                 stop = time.time()
@@ -34,17 +39,18 @@ class Game():
                 self.inventory.money.pay(5)
                 self.inventory.add(inventory.Item("ticket"))
                 self.solved_alice = True
-            elif self.current_scene == scenes.library and self.solved_animal == False:
+            elif self.current_scene == scenes.library and \
+                    self.solved_animal is False:
                 animal_riddle.solve_riddle()
                 self.inventory.add(inventory.Item("book"))
                 self.solved_animal = True
-            elif self.current_scene == scenes.book or self.current_scene == scenes.cafe:
+            elif self.current_scene in [scenes.book, scenes.cafe, scenes.cafe2]:
                 print("Would you like to try again tomorrow?(y/n)")
-                answer= input("\n>")
+                answer = input("\n>")
                 if answer == "y":
                     self.play()
-                elif answer =="n":
-                    self.keep_playing == False
+                elif answer == "n":
+                    self.keep_playing is False
                     break
                 else:
                     print("Only y and n are accepted answers.")
@@ -52,13 +58,11 @@ class Game():
             self.current_scene.handle_input(self, command)
 
 
-
 def eval_time(end, start, game):
-    """Calculates the time spent solving the riddle and
-    evaluates if the player will be late."""
+    """
+    Calculates the time spent solving the riddle and
+    evaluates if the player will be late.
+    """
     time_spent = end-start
     if time_spent > 120.0:
         game.tardiness = True
-
-def check_for_riddle(current_scene):
-    """Checks if the current scene requires solving a riddle"""
