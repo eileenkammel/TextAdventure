@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Zweck der Datei
+# Main file to start the textadventure.
 # Eileen Niedenführ | Matrikelnr. 811770
 # Datum
 

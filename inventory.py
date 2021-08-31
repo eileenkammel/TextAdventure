@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+# Creates items and an inventory.
+# Eileen Niedenführ | Matrikelnr. 811770
+# Datum
+
 class Item():
-    """Crates an item for the inventory"""
+    """
+    Creates an item for the inventory.
+    """
     def __init__(self, name):
         self.name = name
 
@@ -8,11 +15,21 @@ class Item():
 
 
 class Money():
-    """Creates a monetary item for the inventory"""
+    """
+    Creates a monetary item for the inventory
+    """
     def __init__(self, value):
+        """
+        Gets initialized with a numerical value.
+        """
         self.value = value
 
     def pay(self, amount):
+        """
+        Function to reduce the value.
+        Keyword arguments:
+        amount -- int: Amount that is to be substracted.
+        """
         self.value -= amount
 
     def __str__(self):
@@ -20,16 +37,25 @@ class Money():
 
 
 class Inventory():
-    """Creates an inventory, with one included start Item"""
+    """
+    Creates an inventory, with an empty list
+    and included start money.
+    """
     def __init__(self):
         self.contents = []
         self.money = Money(20)
 
     def add(self, item):
+        """
+        Function to add items to the inventory.
+        """
         self.contents.append(item)
 
     def __str__(self):
-        i = "Your bag contains:\n"
+        """
+        Pretty printing the inventory instance.
+        """
+        i = "\nYour bag contains:\n"
         i += str(self.money)+"\n"
         for item in self.contents:
             i += str(item)
