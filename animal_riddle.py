@@ -58,5 +58,10 @@ def get_riddle():
         animal_list = animals.readlines()
         animal_choice = random.randint(0, (len(animal_list)-1))
         animal = animal_list[animal_choice].strip().lower()
-        definition = wn.synset(animal + ".n.01").definition()
+        definition = ""
+        syns = wn.synsets(animal)
+        for syn in syns:
+            if syn.lexname() == "noun.animal":
+                definition += syn.definition()
+                break
         return definition, animal
