@@ -27,8 +27,12 @@ def solve_riddle():
     while tries < 3:
         answer_guess = input("\n>").lower()
         if answer_guess != animal:
-            print("\nThat's incorrect. Try again!\n")
-            tries += 1
+            if answer_guess == "###":
+                print("\nYou continue without solving the riddle.\n")
+                return
+            else:
+                print("\nThat's incorrect. Try again!\n")
+                tries += 1
 # If the user guesses correct within three times,
 # the game will return to the main game-loop.
         elif answer_guess == animal:
