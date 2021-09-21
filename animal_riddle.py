@@ -21,6 +21,10 @@ def solve_riddle():
 # The get_riddle() function generates a
 # rondom animal/despription pair.
     definition, animal = get_riddle()
+# Checking if a riddle definition was generatet. If not,
+# the function calls itself again to generate a new riddle.
+    if len(definition) == 0:
+        solve_riddle()
     print(definition)
 # The 'guess-loop' compares the user input to
 #  the animal and adds to the counter.
@@ -59,6 +63,9 @@ def get_riddle():
         animal_choice = random.randint(0, (len(animal_list)-1))
         animal = animal_list[animal_choice].strip().lower()
         definition = ""
+        # Making sure, that if there are synonyms,
+        # the definition of the animal is used.
+        # Taken and adaptet from the moodle forum.
         syns = wn.synsets(animal)
         for syn in syns:
             if syn.lexname() == "noun.animal":
