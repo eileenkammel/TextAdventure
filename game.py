@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Creates the game class and the method for executing the game.
 # Eileen Niedenführ | Matrikelnr. 811770
-# Datum
+# 23.09.2021
 
 
 import scenes
@@ -24,6 +24,10 @@ class Game():
         self.tardiness = False
         self.solved_alice = False
         self.solved_animal = False
+        # Makes sure that scene description is only printed once
+        # when initially entering a scene. Is set to True
+        # after giving input which does not result in change
+        # of scene.
         self.skip_description = False
 
     def play(self):
@@ -32,17 +36,17 @@ class Game():
 
         """
         # Because the player can start a new game loop without
-        #  closing the file,the next codeline makes sure the
-        #  new game loop starts with the initial parameters.
+        # closing the file,the next codeline makes sure the
+        # new game loop starts with the initial parameters.
         self.__init__()
-        # The scene description will only be printed once when first
-        # changing the state to a certain scene.
+        # After skipping a scene description the variable
+        # will be set to default False.
         while self.keep_playing:
             if self.skip_description is True:
                 self.skip_description = False
             else:
                 print(self.current_scene.description)
-            # Making sure that the riddle gets only called at the right scene
+            # Makes sure that the riddle gets only called at the right scene
             # and if it has not already been solved prior.
             if self.current_scene == scenes.ticket_machine and \
                     self.solved_alice is False:
@@ -52,14 +56,20 @@ class Game():
                 alice_riddle.solve_riddle()
                 stop = time.time()
                 eval_time(stop, start, self)
+                # Paying for the ticket, reducing the
+                # value of the money instance in the inventory.
                 self.inventory.money.pay(5)
+                # creating an item instance and adding it
+                # to the inventory.
                 self.inventory.add(inventory.Item("ticket"))
                 self.solved_alice = True
-            # Making sure that the riddle gets only called at the right scene
+            # Makes sure that the riddle gets only called at the right scene
             # and if it has not already been solved prior.
             elif self.current_scene == scenes.library and \
                     self.solved_animal is False:
                 animal_riddle.solve_riddle()
+                # creating an item instance and adding it
+                # to the inventory.
                 self.inventory.add(inventory.Item("book"))
                 self.solved_animal = True
                 # Defining the endpoints of the game. Giving the user the

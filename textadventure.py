@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Main file to start the textadventure.
 # Eileen Niedenführ | Matrikelnr. 811770
-# Datum
+# 23.09.2021
 
 import game
 
