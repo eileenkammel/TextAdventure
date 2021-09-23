@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Creates items and an inventory.
 # Eileen Niedenführ | Matrikelnr. 811770
-# Datum
+# 23.09.2021
 
 class Item():
     """

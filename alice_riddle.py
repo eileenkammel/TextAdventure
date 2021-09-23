@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Generates and executes the alice riddle for the ticket machine scene.
 # Eileen Niedenführ | Matrikelnr. 811770
-# Datum
+# 23.09.2021
 
 
 import random

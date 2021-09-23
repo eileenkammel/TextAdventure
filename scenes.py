@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Creates all scenes for the game and how they handle input.
 # Eileen Niedenführ | Matrikelnr. 811770
-# Datum
+# 23.09.2021
 
 
 import random
